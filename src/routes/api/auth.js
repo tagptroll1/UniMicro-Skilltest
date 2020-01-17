@@ -1,0 +1,30 @@
+import routes from "routes";
+import * as api from "api";
+
+export async function post(req, res) {
+    const { body } = req;
+
+    const accessTokenResponse = await api.post({
+        body,
+        path: routes.test.signIn,
+    });
+
+    const { access_token } = accessTokenResponse.message;
+
+    if (!access_token) {
+        res.writeHead(400)
+        return res.end(accessTokenResponse)
+    }
+
+    req.session.access_token = access_token;
+
+    const companiesResponse = await api.get({
+        path: routes.test.companyKey,
+        token: access_token,
+    });
+
+    req.session.companies = companiesResponse.message;
+
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(companiesResponse.message));
+}

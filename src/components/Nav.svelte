@@ -1,5 +1,8 @@
 <script>
   export let segment;
+
+  import { stores } from "@sapper/app";
+  const { session } = stores();
 </script>
 
 <style>
@@ -48,13 +51,17 @@
   }
 </style>
 
-<nav>
-  <ul>
-    <li>
-      <a class:selected={segment === undefined} href=".">home</a>
-    </li>
-    <li>
-      <a class:selected={segment === 'about'} href="about">about</a>
-    </li>
-  </ul>
-</nav>
+{#if $session.loggedIn}
+  <nav>
+    <ul>
+      <li>
+        <a class:selected={segment === 'companies'} href="companies">
+          companies
+        </a>
+      </li>
+      <li>
+        <a class:selected={segment === 'contacts'} href="contacts">contacts</a>
+      </li>
+    </ul>
+  </nav>
+{/if}

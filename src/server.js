@@ -1,7 +1,7 @@
 import sirv from 'sirv';
 import polka from 'polka';
 import bodyParser from "body-parser";
-import memorystore from "memorystore";
+import MemoryStore from "memorystore";
 import compression from 'compression';
 import session from 'express-session';
 import * as sapper from '@sapper/server';
@@ -9,7 +9,7 @@ import * as sapper from '@sapper/server';
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
-const MemoryStore = memorystore(session);
+const memoryStore = MemoryStore(session);
 
 polka()
 	.use(bodyParser.json())
@@ -20,14 +20,18 @@ polka()
 		cookie: {
 			maxAge: 60 * 60 * 24 * 365
 		},
-		store: new MemoryStore(),
+		store: new memoryStore(),
 	}))
 	.use(
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		sapper.middleware({
 			session: req => {
-
+				return {
+					loggedIn: !!(req.session && req.session.accessToken),
+					companies: req.session && req.session.companies,
+					currentCompany: req.session && req.session.currentCompany,
+				};
 			}
 		})
 	)

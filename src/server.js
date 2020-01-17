@@ -27,10 +27,15 @@ polka()
 		sirv('static', { dev }),
 		sapper.middleware({
 			session: req => {
+				const { session } = req;
+
+				if (!session) return {};
+
+				const { accessToken, companies, currentCompany } = session;
 				return {
-					loggedIn: !!(req.session && req.session.accessToken),
-					companies: req.session && req.session.companies,
-					currentCompany: req.session && req.session.currentCompany,
+					companies,
+					currentCompany,
+					loggedIn: !!accessToken,
 				};
 			}
 		})

@@ -1,4 +1,9 @@
 <script>
+  import { goto, stores } from "@sapper/app";
+  import { post } from "api";
+  import routes from "routes";
+
+  const { session } = stores();
   let valid;
 
   function handleInput({ target }) {
@@ -8,7 +13,19 @@
   async function handleSubmit({ target }) {
     if (!target.checkValidity()) return;
 
-    console.log(target.username, target.password);
+    const response = await post({
+      path: routes.sapper.login,
+      body: {
+        username: target.username.value,
+        password: target.password.value
+      }
+    });
+
+    if (response.ok) {
+      $session.companies = response.message;
+      $session.loggedIn = true;
+      goto(routes.site.companies);
+    }
   }
 </script>
 

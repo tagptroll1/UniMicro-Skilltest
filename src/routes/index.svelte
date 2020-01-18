@@ -1,8 +1,27 @@
+<script context="module">
+  import routes from "routes";
+
+  export function preload(page, { companies }) {
+    if (companies) {
+      this.redirect(302, routes.site.contacts);
+    }
+  }
+</script>
+
 <script>
   import Login from "@components/Login.svelte";
 </script>
 
 <style>
+  main {
+    position: relative;
+    max-width: 56em;
+    background-color: white;
+    padding: 2em;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
   h1 {
     text-align: center;
     margin: 0 auto;
@@ -31,8 +50,10 @@
   <title>Skill Test Unimicro</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<main>
+  <h1>Great success!</h1>
 
-<div>
-  <Login />
-</div>
+  <div>
+    <Login />
+  </div>
+</main>

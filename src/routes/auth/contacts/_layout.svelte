@@ -1,13 +1,15 @@
+<script context="module">
+  export function preload(page, { companies }) {
+    return { companies };
+  }
+</script>
+
 <script>
+  export let companies;
+
   import CompanyList from "@components/CompanyList.svelte";
   import routes from "routes";
-  import * as api from "api";
-  import { goto, stores } from "@sapper/app";
-
-  const { session } = stores();
-  $: companies = $session.companies;
-
-  let selectedCompany;
+  import { goto } from "@sapper/app";
 
   function handleChange({ target }) {
     const { value } = target;

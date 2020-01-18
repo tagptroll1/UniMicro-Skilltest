@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import compression from 'compression';
 import session from 'express-session';
 import * as sapper from '@sapper/server';
-import redirect from '@polka/redirect';
 import sessionFileStore from 'session-file-store';
 
 const { PORT, NODE_ENV } = process.env;

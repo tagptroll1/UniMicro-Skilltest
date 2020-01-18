@@ -5,6 +5,8 @@
 
   const { session } = stores();
   let valid;
+  let forbidden = false;
+  let error = false;
 
   function handleInput({ target }) {
     valid = target.reportValidity();
@@ -16,16 +18,21 @@
     const response = await post({
       path: routes.sapper.login,
       body: {
-        username: target.username.value,
-        password: target.password.value
+        Username: target.username.value,
+        Password: target.password.value
       }
     });
 
     if (response.ok) {
       $session.companies = response.message;
       $session.loggedIn = true;
-      await goto(routes.site.contacts);
+      return await goto(routes.site.contacts);
+    } else if (response.status === 401) {
+      forbidden = true;
+    } else {
+      error = true;
     }
+    target.reset();
   }
 </script>
 
@@ -35,6 +42,12 @@
     flex-direction: column;
     align-items: center;
     max-width: 200px;
+  }
+
+  p {
+    text-align: center;
+    color: red;
+    font-size: 0.8rem;
   }
 </style>
 
@@ -46,4 +59,9 @@
   <input id="password" name="password" type="password" required />
 
   <input type="submit" disabled={valid ? null : 'disabled'} value="Login" />
+  {#if forbidden}
+    <p>Username or password is incorrect</p>
+  {:else if error}
+    <p>Something went wrong</p>
+  {/if}
 </form>

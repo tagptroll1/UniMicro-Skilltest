@@ -1,7 +1,7 @@
 import * as api from "api";
 import routes from "routes";
 
-export async function get(req, res) {
+export async function get(req, res, next) {
 
     const response = await api.get({
         path: routes.test.biz.contacts,
@@ -13,9 +13,10 @@ export async function get(req, res) {
     });
 
     if (!response.ok) {
-        res.writeHead(400)
-        return res.end()
+        next();
     }
+
+    req.session.currentCompany = req.query.companyKey;
 
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(response.message))

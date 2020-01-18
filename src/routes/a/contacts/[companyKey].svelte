@@ -3,28 +3,23 @@
   import routes from "routes";
 
   export async function preload({ params }, session) {
-    if (!session || !session.loggedIn) {
-      return this.redirect(301, "/");
-    }
+    const path = routes.sapper.contacts(params.companyKey);
+    const contactsResponse = await api.get({ path }, this.fetch);
 
     session.currentCompany = params.companyKey;
-
-    const path = routes.sapper.contacts(params.companyKey);
-    const contactsResponse = await api.get({ path });
 
     if (!contactsResponse.ok) {
       this.error(error, contactsResponse.message);
     }
 
-    return { contacts: contactsResponse.message };
+    return {
+      contacts: contactsResponse.message
+    };
   }
 </script>
 
 <script>
   export let contacts;
-
-  import { stores } from "@sapper/app";
-  const { session } = stores();
 </script>
 
 <style>
@@ -41,10 +36,12 @@
 
 <ul>
   {#each contacts as contact}
-    <li>
-      <p>ID: {contact.ID}</p>
-      <p>Role: {contact.Role}</p>
-      <p>Comment: {contact.Comment || 'None'}</p>
-    </li>
+    <a href={routes.site.contactId(contact.ID)}>
+      <li>
+        <p>ID: {contact.ID}</p>
+        <p>Role: {contact.Role}</p>
+        <p>Comment: {contact.Comment || 'None'}</p>
+      </li>
+    </a>
   {/each}
 </ul>

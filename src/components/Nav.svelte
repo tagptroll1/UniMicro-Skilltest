@@ -51,16 +51,14 @@
   }
 </style>
 
-{#if $session.loggedIn}
+{#if $session.companies}
   <nav>
     <ul>
       <li>
-        <a class:selected={segment === 'companies'} href="companies">
-          companies
-        </a>
+        <a class:selected={segment === 'contacts'} href="contacts">contacts</a>
       </li>
       <li>
-        <a class:selected={segment === 'contacts'} href="contacts">contacts</a>
+        <a href="api/logout">Logout</a>
       </li>
     </ul>
   </nav>

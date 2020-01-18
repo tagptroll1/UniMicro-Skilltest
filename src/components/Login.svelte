@@ -24,7 +24,7 @@
     if (response.ok) {
       $session.companies = response.message;
       $session.loggedIn = true;
-      goto(routes.site.companies);
+      await goto(routes.site.contacts);
     }
   }
 </script>

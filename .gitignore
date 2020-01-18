@@ -3,3 +3,4 @@
 /__sapper__/
 .env
 /src/node_modules/@sapper/
+.sessions

@@ -1,41 +1,45 @@
 import sirv from 'sirv';
 import polka from 'polka';
 import bodyParser from "body-parser";
-import MemoryStore from "memorystore";
 import compression from 'compression';
 import session from 'express-session';
 import * as sapper from '@sapper/server';
+import redirect from '@polka/redirect';
+import sessionFileStore from 'session-file-store';
 
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
-const memoryStore = MemoryStore(session);
+const FileStore = sessionFileStore(session);
 
 polka()
 	.use(bodyParser.json())
 	.use(session({
 		secret: "uniMicro",
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		cookie: {
-			maxAge: 60 * 60 * 24 * 365
+			maxAge: 60 * 60 * 24 * 365,
+			secure: NODE_ENV === 'production',
+			signed: NODE_ENV === 'production',
 		},
-		store: new memoryStore(),
+		store: new FileStore({ path: ".sessions" }),
 	}))
 	.use(
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
+
 		sapper.middleware({
 			session: req => {
 				const { session } = req;
 
 				if (!session) return {};
 
-				const { accessToken, companies, currentCompany } = session;
+				const { companies, currentCompany } = session;
+
 				return {
 					companies,
 					currentCompany,
-					loggedIn: !!accessToken,
 				};
 			}
 		})

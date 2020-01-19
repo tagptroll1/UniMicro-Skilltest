@@ -30,22 +30,30 @@
 
 <style>
   h1 {
-    margin-bottom: 0;
+    text-align: center;
+    margin-bottom: 10px;
   }
 
   a {
-    text-decoration: none;
+    margin: 0 auto;
+    display: block;
+    width: max-content;
   }
 
   ul {
-    width: max-content;
+    width: 30%;
+    margin: 20px auto 0;
     padding-left: 0;
   }
 
+  @media (max-width: 900px) {
+    ul {
+      width: 50%;
+    }
+  }
+
   li {
-    position: relative;
-    width: max-content;
-    margin: 10px 10px;
+    margin: 30px 10px 0;
     padding-left: 5px;
     list-style: none;
     color: darkblue;
@@ -54,11 +62,7 @@
   }
 
   .create-new {
-    margin-top: 5px;
-    position: relative;
-    height: 25px;
     padding: 2px 5px;
-    border: 1px solid rgb(82, 82, 82);
   }
 </style>
 

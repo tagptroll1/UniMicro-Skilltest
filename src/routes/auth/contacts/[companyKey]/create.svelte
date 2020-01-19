@@ -8,10 +8,12 @@
   export let currentCompany;
 
   import { goto } from "@sapper/app";
-  import ContactForm from "@forms/Contact.svelte";
+  import ContactForm from "@forms/ContactForm.svelte";
   import payloads from "payloads";
   import routes from "routes";
   import * as api from "api";
+
+  const returnTo = routes.site.contacts;
 
   function handleSubmit({ target }) {
     const payload = payloads.contacts({
@@ -36,6 +38,12 @@
   }
 </script>
 
+<style>
+  h1 {
+    text-align: center;
+  }
+</style>
+
 <h1>Create new contact</h1>
 
-<ContactForm on:submit={handleSubmit} />
+<ContactForm on:submit={handleSubmit} {returnTo} />

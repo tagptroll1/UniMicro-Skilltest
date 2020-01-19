@@ -18,6 +18,7 @@
   export let contact;
 
   import payloads from "payloads";
+  import ContactForm from "@forms/Contact.svelte";
   import { stores, goto } from "@sapper/app";
   const { session } = stores();
 
@@ -36,9 +37,43 @@
     DefaultEmail: DefaultEmail ? DefaultEmail.ID : -1
   };
 
+  const props = {
+    Name,
+    Role,
+    Comment,
+    returnTo: routes.site.contactId(ID)
+  };
+
+  if (InvoiceAddress) {
+    const {
+      AddressLine1,
+      AddressLine2,
+      AddressLine3,
+      PostalCode,
+      City,
+      Country
+    } = InvoiceAddress;
+    Object.assign(props, {
+      AddressLine1,
+      AddressLine2,
+      AddressLine3,
+      PostalCode,
+      City,
+      Country
+    });
+  }
+
+  if (DefaultEmail) {
+    props.Email = DefaultEmail.EmailAddress;
+  }
+
+  if (DefaultPhone) {
+    props.Phonenumber = DefaultPhone.Number;
+  }
+
   $session.customerName = Name;
 
-  async function save({ target }) {
+  async function submit({ target }) {
     const payload = payloads.updateContact(ids, {
       Name: target.Name.value,
       Role: target.Role.value,
@@ -67,121 +102,4 @@
   }
 </script>
 
-<style>
-  article {
-    margin: 20px 20px 0;
-  }
-
-  h2 {
-    margin-top: 20px;
-  }
-
-  label,
-  input {
-    display: block;
-  }
-
-  input[type="submit"] {
-    margin-top: 10px;
-  }
-</style>
-
-<article>
-  <form on:submit|preventDefault={save}>
-    <label for="Name">Name</label>
-    <input
-      class="Name"
-      type="text"
-      name="Name"
-      placeholder="Name"
-      value={Name} />
-
-    <label for="Role">Role</label>
-    <input
-      class="Role"
-      type="text"
-      name="Role"
-      placeholder="Role"
-      value={Role || ''} />
-
-    <h2>Address</h2>
-    <label for="AddressLine1">AddressLine1</label>
-    <input
-      class="AddressLine"
-      type="text"
-      name="AddressLine1"
-      placeholder="AddressLine1"
-      value={InvoiceAddress ? InvoiceAddress.AddressLine1 : ''} />
-
-    <label for="AddressLine2">AddressLine2</label>
-    <input
-      class="AddressLine"
-      type="text"
-      name="AddressLine2"
-      placeholder="AddressLine2"
-      value={InvoiceAddress ? InvoiceAddress.AddressLine2 : ''} />
-
-    <label for="AddressLine3">AddressLine3</label>
-    <input
-      class="AddressLine"
-      type="text"
-      name="AddressLine3"
-      placeholder="AddressLine3"
-      value={InvoiceAddress ? InvoiceAddress.AddressLine3 : ''} />
-
-    <label for="PostalCode">Postal code</label>
-    <input
-      class="PostalCode"
-      type="text"
-      name="PostalCode"
-      placeholder="PostalCode"
-      value={InvoiceAddress ? InvoiceAddress.PostalCode : ''} />
-
-    <label for="City">City</label>
-    <input
-      class="City"
-      type="text"
-      name="City"
-      placeholder="City"
-      value={InvoiceAddress ? InvoiceAddress.City : ''} />
-
-    <label for="Country">Country</label>
-    <input
-      class="Country"
-      type="text"
-      name="Country"
-      placeholder="Country"
-      value={InvoiceAddress ? InvoiceAddress.Country : ''} />
-
-    <h2>E-mail</h2>
-    <label for="EmailAddress">E-Mail:</label>
-    <input
-      type="text"
-      name="EmailAddress"
-      class="Email"
-      placeholder="E-mail address"
-      value={DefaultEmail ? DefaultEmail.EmailAddress : ''} />
-
-    <h2>Phonenumber</h2>
-    <label for="PhoneNumber">Phonenumber:</label>
-    <input
-      type="text"
-      name="PhoneNumber"
-      class="PhoneNumber"
-      placeholder="Phonenumber"
-      value={DefaultPhone ? DefaultPhone.Number : ''} />
-
-    <label for="Comment">Comment:</label>
-    <input
-      type="text"
-      name="Comment"
-      class="Comment"
-      placeholder="Comment (optional)"
-      value={Comment || ''} />
-
-    <input type="submit" value="Save" />
-    <a href={routes.site.contactId(ID)}>Cancel</a>
-
-  </form>
-
-</article>
+<ContactForm on:submit {...props} />

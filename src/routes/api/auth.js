@@ -11,6 +11,8 @@ export async function post(req, res) {
 
     const { message } = accessTokenResponse;
 
+    res.setHeader("Content-Type", "application/json");
+
     if (!message) {
         res.writeHead(accessTokenResponse.status)
         return res.end(JSON.stringify({ ok: false }));
@@ -24,7 +26,5 @@ export async function post(req, res) {
     });
 
     req.session.companies = companiesResponse.message;
-
-    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(companiesResponse.message));
 }

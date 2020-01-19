@@ -19,6 +19,9 @@ const aliases = alias({
 	resolve: ["svelte"],
 	entries: [
 		{ find: "@components", replacement: "src/components" },
+		{ find: "api", replacement: "src/api.js" },
+		{ find: "routes", replacement: "src/routes.js" },
+		{ find: "payloads", replacement: "src/payloads.js" },
 		{ find: /@stores\/(.*)/, replacement: "src/stores/$1.js" },
 	],
 });

@@ -12,13 +12,15 @@ export async function get(req, res, next) {
         },
     });
 
+    res.setHeader("Content-Type", "application/json");
+
     if (!response.ok) {
-        return next();
+        res.writeHead(response.status)
+        return res.end(JSON.stringify(response.message));
     }
 
     req.session.currentCompany = req.query.companyKey;
 
-    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(response.message))
 }
 
@@ -35,10 +37,12 @@ export async function post(req, res, next) {
         },
     });
 
+    res.setHeader("Content-Type", "application/json");
+
     if (!response.ok) {
-        return next();
+        res.writeHead(response.status);
+        return res.end(JSON.stringify(response.message));
     }
 
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify(response.message))
+    res.end(JSON.stringify(response.message));
 }

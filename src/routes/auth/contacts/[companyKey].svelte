@@ -52,7 +52,7 @@
     font-size: 2rem;
   }
 
-  li::after {
+  a:not(.create-new)::after {
     position: absolute;
     content: "";
     display: block;

@@ -44,15 +44,43 @@
     max-width: 200px;
   }
 
+  label {
+    width: 100%;
+    color: rgba(82, 82, 82, 0.8);
+    margin-top: 15px;
+  }
+
+  input:not([type="submit"]) {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  input[type="submit"] {
+    font-size: 1.3em;
+    margin: 30px;
+    border-radius: 3px;
+    background-color: #0070e0;
+    color: white;
+    border: none;
+    padding: 10px 50px;
+  }
+
   p {
     text-align: center;
     color: red;
     font-size: 0.8rem;
   }
+
+  img {
+    width: 220px;
+    margin-bottom: 40px;
+  }
 </style>
 
 <form on:submit|preventDefault={handleSubmit} on:input={handleInput}>
-  <label for="username">Username</label>
+  <img src="unieconomy.png" alt="unimicrologo" />
+
+  <label for="username">E-mail</label>
   <input id="username" name="username" type="text" required />
 
   <label for="password">Password</label>

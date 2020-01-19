@@ -1,4 +1,4 @@
-export function get(req, res, next) {
+export function post(req, res, next) {
     delete req.session.access_token;
     delete req.session.currentCompany;
     delete req.session.companies;

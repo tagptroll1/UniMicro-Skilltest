@@ -28,7 +28,7 @@ const app = polka()
       signed: NODE_ENV === 'production',
       httpOnly: NODE_ENV === 'production',
     },
-    store: new StoreClass({ path: process.env.NOW ? `/tmp/sessions` : ".sessions" }),
+    store: new StoreClass({ path: `/tmp/sessions` }),
   }))
   .use(sniffer)
   .use(

@@ -63,6 +63,7 @@
     color: white;
     border: none;
     padding: 10px 50px;
+    cursor: pointer;
   }
 
   p {

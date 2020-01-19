@@ -22,12 +22,32 @@ export async function get(req, res, next) {
         }
     });
 
-    if (contact.ok) {
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify(contact.message));
-    } else {
-        next();
-    }
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(contact.status)
+    res.end(JSON.stringify(contact.message || { ok: response.ok }));
+}
+
+export async function put(req, res, next) {
+    const { params, session, body } = req;
+
+    const key = params.contactId;
+    const token = session.access_token;
+    const CompanyKey = session.currentCompany;
+
+    const path = routes.test.biz.contactId(key);
+
+    const response = await api.put({
+        token,
+        path,
+        body,
+        headers: {
+            CompanyKey,
+        }
+    });
+
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(response.status)
+    res.end(JSON.stringify(response.message || { ok: response.ok }));
 }
 
 export async function del(req, res, next) {
@@ -48,11 +68,8 @@ export async function del(req, res, next) {
         }
     });
 
-    if (response.ok) {
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ message: "OK" }));
-    } else {
-        next();
-    }
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(response.status)
+    res.end(JSON.stringify(response.message || { ok: response.ok }));
 }
 

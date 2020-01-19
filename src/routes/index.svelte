@@ -25,6 +25,7 @@
   div {
     position: relative;
     min-width: 400px;
+    max-width: 600px;
     width: 40%;
     background-color: white;
     padding: 2em;
@@ -34,15 +35,25 @@
     box-shadow: 0 0 21px -3px #000;
   }
 
+  @media (max-width: 400px) {
+    div {
+      min-width: unset;
+      max-width: unset;
+      width: 100%;
+    }
+  }
+
   img {
     position: absolute;
     top: 0;
     left: 0;
 
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 
     z-index: -1;
+    object-fit: cover;
+    object-position: 50% 50%;
   }
 
   div {

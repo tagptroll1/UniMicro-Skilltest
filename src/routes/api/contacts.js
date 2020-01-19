@@ -21,7 +21,7 @@ export async function get(req, res, next) {
 
     req.session.currentCompany = req.query.companyKey;
 
-    res.end(JSON.stringify(response.message))
+    res.end(JSON.stringify(response.message));
 }
 
 export async function post(req, res, next) {
@@ -38,11 +38,6 @@ export async function post(req, res, next) {
     });
 
     res.setHeader("Content-Type", "application/json");
-
-    if (!response.ok) {
-        res.writeHead(response.status);
-        return res.end(JSON.stringify(response.message));
-    }
-
-    res.end(JSON.stringify(response.message));
+    res.writeHead(response.status);
+    res.end(JSON.stringify(response.message || { ok: response.ok }));
 }

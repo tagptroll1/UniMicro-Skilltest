@@ -4,7 +4,7 @@ import routes from "routes";
 export async function get(req, res, next) {
 
     const response = await api.get({
-        path: routes.test.biz.contacts,
+        path: routes.test.biz.contacts + "?expand=Info,Info.DefaultEmail,Info.DefaultPhone",
         token: req.session.access_token,
         headers: {
             "Content-Type": "application/json",

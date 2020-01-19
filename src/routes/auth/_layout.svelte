@@ -16,7 +16,8 @@
   }
 
   main {
-    margin: 0 10px;
+    margin: 0 auto;
+    max-width: 90%;
   }
 </style>
 

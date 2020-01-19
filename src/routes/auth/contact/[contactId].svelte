@@ -132,41 +132,41 @@
 
     {#if DefaultEmail}
       <li>
-        E-Mail:
-        <span>{DefaultEmail.EmailAddress || 'none'}</span>
+        E-Mail
+        <span>{DefaultEmail.EmailAddress || ''}</span>
       </li>
     {/if}
 
     {#if DefaultPhone}
       <li>
-        Phonenumber:
-        <span>{DefaultPhone.Number || 'none'}</span>
+        Phonenumber
+        <span>{DefaultPhone.Number || ''}</span>
       </li>
       <li>
-        Comment:
-        <span>{Comment || 'none'}</span>
+        Comment
+        <span>{Comment || ''}</span>
       </li>
     {/if}
 
     {#if InvoiceAddress}
       <li>
-        Address:
+        Address
         <span class="address">{InvoiceAddress.AddressLine1 || ''}</span>
         <span class="address">{InvoiceAddress.AddressLine2 || ''}</span>
         <span class="address">{InvoiceAddress.AddressLine3 || ''}</span>
       </li>
       <li>
-        Postal Code:
+        Postal Code
         <span>{InvoiceAddress.PostalCode || ''}</span>
       </li>
 
       <li>
-        City:
+        City
         <span>{InvoiceAddress.City || ''}</span>
       </li>
 
       <li>
-        Country:
+        Country
         <span>{InvoiceAddress.Country || ''}</span>
       </li>
     {/if}

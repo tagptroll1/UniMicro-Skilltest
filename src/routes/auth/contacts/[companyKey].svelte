@@ -93,7 +93,7 @@
     <li>
       <a href={routes.site.contactId(contact.ID)}>
         {contact.Info.Name}
-        <span>{contact.Role}</span>
+        <span>{contact.Role || ''}</span>
       </a>
     </li>
   {/each}

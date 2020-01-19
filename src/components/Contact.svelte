@@ -56,11 +56,11 @@
     {contact.Info.Name}
   </a>
   <span>{contact.Role || ''}</span>
-  <button on:click={() => (show = !show)}>Mer</button>
+  <button on:click={() => (show = !show)}>{show ? 'Hide' : 'More'}</button>
   {#if show}
     <div transition:fly={{ y: -10, duration: 250 }}>
-      <a class="email" href={`mailto: ${email}`}>{email}</a>
-      {phone}
+      <a class="email" href={`mailto: ${email}`}>{email || ''}</a>
+      {phone || ''}
     </div>
   {/if}
 

@@ -105,40 +105,46 @@
   </h1>
   <ul>
 
-    <li>
-      E-Mail:
-      <span>{DefaultEmail.EmailAddress || 'none'}</span>
-    </li>
-    <li>
-      Phonenumber:
-      <span>{DefaultPhone.Number || 'none'}</span>
-    </li>
-    <li>
-      Comment:
-      <span>{Comment || 'none'}</span>
-    </li>
+    {#if DefaultEmail}
+      <li>
+        E-Mail:
+        <span>{DefaultEmail.EmailAddress || 'none'}</span>
+      </li>
+    {/if}
 
-    <li>
-      Address:
-      <span class="address">{InvoiceAddress.AddressLine1 || ''}</span>
-      <span class="address">{InvoiceAddress.AddressLine2 || ''}</span>
-      <span class="address">{InvoiceAddress.AddressLine3 || ''}</span>
-    </li>
+    {#if DefaultPhone}
+      <li>
+        Phonenumber:
+        <span>{DefaultPhone.Number || 'none'}</span>
+      </li>
+      <li>
+        Comment:
+        <span>{Comment || 'none'}</span>
+      </li>
+    {/if}
 
-    <li>
-      Postal Code:
-      <span>{InvoiceAddress.PostalCode || ''}</span>
-    </li>
+    {#if InvoiceAddress}
+      <li>
+        Address:
+        <span class="address">{InvoiceAddress.AddressLine1 || ''}</span>
+        <span class="address">{InvoiceAddress.AddressLine2 || ''}</span>
+        <span class="address">{InvoiceAddress.AddressLine3 || ''}</span>
+      </li>
+      <li>
+        Postal Code:
+        <span>{InvoiceAddress.PostalCode || ''}</span>
+      </li>
 
-    <li>
-      City:
-      <span>{InvoiceAddress.City || ''}</span>
-    </li>
+      <li>
+        City:
+        <span>{InvoiceAddress.City || ''}</span>
+      </li>
 
-    <li>
-      Country:
-      <span>{InvoiceAddress.Country || ''}</span>
-    </li>
+      <li>
+        Country:
+        <span>{InvoiceAddress.Country || ''}</span>
+      </li>
+    {/if}
   </ul>
 
   <a href={routes.site.editContact(ID)}>

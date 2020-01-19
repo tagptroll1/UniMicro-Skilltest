@@ -31,9 +31,9 @@
   const ids = {
     Contact: ID,
     Info: contact.Info.ID,
-    InvoiceAddress: InvoiceAddress.ID,
-    DefaultPhone: DefaultPhone.ID,
-    DefaultEmail: DefaultEmail.ID
+    InvoiceAddress: InvoiceAddress ? InvoiceAddress.ID : -1,
+    DefaultPhone: DefaultPhone ? DefaultPhone.ID : -1,
+    DefaultEmail: DefaultEmail ? DefaultEmail.ID : -1
   };
 
   $session.customerName = Name;
@@ -111,7 +111,7 @@
       type="text"
       name="AddressLine1"
       placeholder="AddressLine1"
-      value={InvoiceAddress.AddressLine1 || ''} />
+      value={InvoiceAddress ? InvoiceAddress.AddressLine1 : ''} />
 
     <label for="AddressLine2">AddressLine2</label>
     <input
@@ -119,7 +119,7 @@
       type="text"
       name="AddressLine2"
       placeholder="AddressLine2"
-      value={InvoiceAddress.AddressLine2 || ''} />
+      value={InvoiceAddress ? InvoiceAddress.AddressLine2 : ''} />
 
     <label for="AddressLine3">AddressLine3</label>
     <input
@@ -127,7 +127,7 @@
       type="text"
       name="AddressLine3"
       placeholder="AddressLine3"
-      value={InvoiceAddress.AddressLine3 || ''} />
+      value={InvoiceAddress ? InvoiceAddress.AddressLine3 : ''} />
 
     <label for="PostalCode">Postal code</label>
     <input
@@ -135,7 +135,7 @@
       type="text"
       name="PostalCode"
       placeholder="PostalCode"
-      value={InvoiceAddress.PostalCode || ''} />
+      value={InvoiceAddress ? InvoiceAddress.PostalCode : ''} />
 
     <label for="City">City</label>
     <input
@@ -143,7 +143,7 @@
       type="text"
       name="City"
       placeholder="City"
-      value={InvoiceAddress.City || ''} />
+      value={InvoiceAddress ? InvoiceAddress.City : ''} />
 
     <label for="Country">Country</label>
     <input
@@ -151,7 +151,7 @@
       type="text"
       name="Country"
       placeholder="Country"
-      value={InvoiceAddress.Country || ''} />
+      value={InvoiceAddress ? InvoiceAddress.Country : ''} />
 
     <h2>E-mail</h2>
     <label for="EmailAddress">E-Mail:</label>
@@ -160,7 +160,7 @@
       name="EmailAddress"
       class="Email"
       placeholder="E-mail address"
-      value={DefaultEmail.EmailAddress || ''} />
+      value={DefaultEmail ? DefaultEmail.EmailAddress : ''} />
 
     <h2>Phonenumber</h2>
     <label for="PhoneNumber">Phonenumber:</label>
@@ -169,7 +169,7 @@
       name="PhoneNumber"
       class="PhoneNumber"
       placeholder="Phonenumber"
-      value={DefaultPhone.Number || ''} />
+      value={DefaultPhone ? DefaultPhone.Number : ''} />
 
     <label for="Comment">Comment:</label>
     <input

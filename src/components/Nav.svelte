@@ -1,9 +1,18 @@
 <script>
+  export let companies;
   export let segment;
 
+  import CompanyList from "@components/CompanyList.svelte";
+  import routes from "routes";
   import { post } from "api";
   import { stores, goto } from "@sapper/app";
   const { session } = stores();
+
+  function handleChange({ target }) {
+    const { value } = target;
+
+    goto(routes.site.contactsCompanyKey(value));
+  }
 
   async function logout() {
     await post({ path: `api/logout` });
@@ -16,12 +25,14 @@
 
 <style>
   nav {
-    border-bottom: 1px solid rgba(255, 62, 0, 0.1);
-    font-weight: 300;
+    display: flex;
+    background-color: var(--main-color);
     padding: 0 1em;
+    box-shadow: 0 1px 3px 2px rgba(20, 20, 20, 0.4);
   }
 
   ul {
+    width: 25%;
     margin: 0;
     padding: 0;
   }
@@ -35,65 +46,47 @@
 
   li {
     display: block;
+    list-style: none;
     float: left;
   }
 
-  .selected {
-    position: relative;
-    display: inline-block;
-  }
-
-  .selected::after {
-    position: absolute;
-    content: "";
-    width: calc(100% - 1em);
-    height: 2px;
-    background-color: rgb(255, 62, 0);
-    display: block;
-    bottom: -1px;
-  }
-
   a,
-  span {
-    text-decoration: none;
-    padding: 1em 0.5em;
+  button {
     display: block;
+    padding: 1em 0.5em;
+
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 600;
+
+    text-decoration: none;
   }
 
   .logout {
-    float: right;
+    margin-left: auto;
   }
 
   button {
     display: block;
-    padding: 22px 8px 16px;
-    color: #333;
-    cursor: pointer;
     box-sizing: border-box;
+
     background-color: unset;
     border: none;
+
+    cursor: pointer;
   }
 </style>
 
 {#if true || $session.companies}
   <nav>
     <ul>
-      {#if segment === 'contact'}
-        <li>
-          <span class:selected={segment === 'contact'}>
-            {$session.customerName}
-          </span>
-        </li>
-      {/if}
-
       <li>
-        <a class:selected={segment === 'contacts'} href="auth/contacts">
-          contacts
-        </a>
+        <a href="auth/contacts">Contacts</a>
       </li>
-      <li class="logout">
-        <button on:click={logout}>Logout</button>
-      </li>
+
     </ul>
+    <CompanyList on:change={handleChange} {companies} />
+
+    <button class="logout" on:click={logout}>Logout</button>
   </nav>
 {/if}

@@ -18,7 +18,7 @@
   export let contact;
 
   import payloads from "payloads";
-  import ContactForm from "@forms/Contact.svelte";
+  import ContactForm from "@forms/ContactForm.svelte";
   import { stores, goto } from "@sapper/app";
   const { session } = stores();
 
@@ -101,5 +101,13 @@
     }
   }
 </script>
+
+<style>
+  h1 {
+    text-align: center;
+  }
+</style>
+
+<h1>Create new contact</h1>
 
 <ContactForm on:submit {...props} />

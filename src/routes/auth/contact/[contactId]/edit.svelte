@@ -110,4 +110,4 @@
 
 <h1>Create new contact</h1>
 
-<ContactForm on:submit {...props} />
+<ContactForm on:submit={submit} {...props} />

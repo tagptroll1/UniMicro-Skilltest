@@ -44,5 +44,56 @@ export default {
             Role,
             Comment
         }
+    },
+    updateContact: function updateContactPayload(Ids, {
+        Name = null,
+        Role = null,
+
+        AddressLine1 = null,
+        AddressLine2 = null,
+        AddressLine3 = null,
+        City = null,
+        Country = null,
+        PostalCode = null,
+        AddressCountryCode = null,
+
+        PhoneCountryCode = null,
+        Description = null,
+        PhoneNumber = null,
+
+        EmailAddress = null,
+
+        Comment = null
+    }) {
+        const obj = {
+            ID: Ids.Contact,
+            Info: {
+                ID: Ids.Info,
+                InvoiceAddress: { ID: Ids.InvoiceAddress },
+                DefaultPhone: { ID: Ids.DefaultPhone },
+                DefaultEmail: { ID: Ids.DefaultEmail },
+            }
+        };
+
+        if (Name !== undefined) obj.Info.Name = Name;
+        if (Role !== undefined) obj.Role = Role;
+        if (Comment !== undefined) obj.Comment = Comment;
+
+        if (AddressLine1 !== undefined) obj.Info.InvoiceAddress.AddressLine1 = AddressLine1;
+        if (AddressLine2 !== undefined) obj.Info.InvoiceAddress.AddressLine2 = AddressLine2;
+        if (AddressLine3 !== undefined) obj.Info.InvoiceAddress.AddressLine3 = AddressLine3;
+
+        if (City !== undefined) obj.Info.InvoiceAddress.City = City;
+        if (Country !== undefined) obj.Info.InvoiceAddress.Country = Country;
+        if (AddressCountryCode !== undefined) obj.Info.InvoiceAddress.CountryCode = AddressCountryCode;
+        if (PostalCode !== undefined) obj.Info.InvoiceAddress.PostalCode = PostalCode;
+
+        if (PhoneCountryCode !== undefined) obj.Info.DefaultPhone.CountryCode = PhoneCountryCode;
+        if (Description !== undefined) obj.Info.DefaultPhone.Description = Description;
+        if (PhoneNumber !== undefined) obj.Info.DefaultPhone.Number = PhoneNumber;
+
+        if (EmailAddress !== undefined) obj.Info.DefaultEmail.EmailAddress = EmailAddress;
+
+        return obj;
     }
 }

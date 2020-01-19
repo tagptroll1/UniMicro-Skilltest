@@ -24,7 +24,7 @@
 
   const {
     ID,
-    Info: { Name, DefaultEmail, DefaultPhone },
+    Info: { Name, DefaultEmail, DefaultPhone, InvoiceAddress },
     Comment,
     Role
   } = contact;
@@ -90,6 +90,10 @@
     border: 2px outset;
     font-size: 0.8rem;
   }
+
+  .address {
+    display: block;
+  }
 </style>
 
 <article>
@@ -112,6 +116,28 @@
     <li>
       Comment:
       <span>{Comment || 'none'}</span>
+    </li>
+
+    <li>
+      Address:
+      <span class="address">{InvoiceAddress.AddressLine1 || ''}</span>
+      <span class="address">{InvoiceAddress.AddressLine2 || ''}</span>
+      <span class="address">{InvoiceAddress.AddressLine3 || ''}</span>
+    </li>
+
+    <li>
+      Postal Code:
+      <span>{InvoiceAddress.PostalCode || ''}</span>
+    </li>
+
+    <li>
+      City:
+      <span>{InvoiceAddress.City || ''}</span>
+    </li>
+
+    <li>
+      Country:
+      <span>{InvoiceAddress.Country || ''}</span>
     </li>
   </ul>
 

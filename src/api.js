@@ -62,3 +62,7 @@ export async function get({ path, token, headers }, fetch) {
 export async function del({ path, token, headers }, fetch) {
     return await send({ path, token, headers, method: "DELETE" }, fetch);
 }
+
+export async function put({ path, body, token, headers }, fetch) {
+    return await send({ path, body, token, headers, method: "PUT" }, fetch);
+}

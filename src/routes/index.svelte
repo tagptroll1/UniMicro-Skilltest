@@ -1,29 +1,53 @@
+<script context="module">
+  import routes from "routes";
+
+  export function preload(page, { companies }) {
+    if (companies) {
+      this.redirect(302, routes.site.contacts);
+    }
+  }
+</script>
+
 <script>
   import Login from "@components/Login.svelte";
 </script>
 
 <style>
-  h1 {
-    text-align: center;
-    margin: 0 auto;
+  main {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  h1 {
-    font-size: 2.8em;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin: 0 0 0.5em 0;
+  div {
+    position: relative;
+    min-width: 400px;
+    width: 40%;
+    background-color: white;
+    padding: 2em;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 0 21px -3px #000;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: -1;
   }
 
   div {
     display: flex;
     justify-content: center;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      font-size: 4em;
-    }
   }
 </style>
 
@@ -31,8 +55,10 @@
   <title>Skill Test Unimicro</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<img src="background_1.jpg" alt="frozenlake backgroundimage" />
 
-<div>
-  <Login />
-</div>
+<main>
+  <div>
+    <Login />
+  </div>
+</main>

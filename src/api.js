@@ -22,6 +22,7 @@ export async function send({ path, body, token, method, headers = {} }, fetch = 
             error: !response.ok,
             status: response.status,
             ok: response.ok,
+            message: ""
         };
 
         if (!response.ok) {
@@ -33,9 +34,11 @@ export async function send({ path, body, token, method, headers = {} }, fetch = 
 
             return returnValue;
         }
+        const text = await response.text();
 
-        const json = await response.json();
-        returnValue.message = json;
+        if (text) {
+            returnValue.message = JSON.parse(text);
+        }
 
         return returnValue;
     } catch (err) {
@@ -52,6 +55,10 @@ export async function post({ path, body, token, headers }, fetch) {
     return await send({ path, body, token, headers, method: "POST" }, fetch);
 }
 
-export async function get({ path, body, token, headers }, fetch) {
-    return await send({ path, body, token, headers, method: "GET" }, fetch);
+export async function get({ path, token, headers }, fetch) {
+    return await send({ path, token, headers, method: "GET" }, fetch);
+}
+
+export async function del({ path, token, headers }, fetch) {
+    return await send({ path, token, headers, method: "DELETE" }, fetch);
 }

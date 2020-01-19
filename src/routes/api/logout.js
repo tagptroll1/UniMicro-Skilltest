@@ -1,12 +1,7 @@
-const redirect = require('@polka/redirect');
-
 export function get(req, res, next) {
-    req.session.destroy(err => {
-        if (err) {
-            console.error(err);
-            next();
-        } else {
-            redirect(res, "/");
-        }
-    });
+    delete req.session.access_token;
+    delete req.session.currentCompany;
+    delete req.session.companies;
+
+    res.end(JSON.stringify({ ok: true }));
 }

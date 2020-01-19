@@ -1,8 +1,17 @@
 <script>
   export let segment;
 
-  import { stores } from "@sapper/app";
+  import { post } from "api";
+  import { stores, goto } from "@sapper/app";
   const { session } = stores();
+
+  async function logout() {
+    await post({ path: `api/logout` });
+    $session.currentCompany = null;
+    $session.companies = null;
+
+    goto("/");
+  }
 </script>
 
 <style>
@@ -44,21 +53,46 @@
     bottom: -1px;
   }
 
-  a {
+  a,
+  span {
     text-decoration: none;
     padding: 1em 0.5em;
     display: block;
   }
+
+  .logout {
+    float: right;
+  }
+
+  button {
+    display: block;
+    padding: 22px 8px 16px;
+    color: #333;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: unset;
+    border: none;
+  }
 </style>
 
-{#if $session.companies}
+{#if true || $session.companies}
   <nav>
     <ul>
+      {#if segment === 'contact'}
+        <li>
+          <span class:selected={segment === 'contact'}>
+            {$session.customerName}
+          </span>
+        </li>
+      {/if}
+
       <li>
-        <a class:selected={segment === 'contacts'} href="contacts">contacts</a>
+        <a class:selected={segment === 'contacts'} href="auth/contacts">
+          contacts
+        </a>
       </li>
-      <li>
-        <a href="api/logout">Logout</a>
+      <li class="logout">
+        <button on:click={logout}>Logout</button>
       </li>
     </ul>
   </nav>

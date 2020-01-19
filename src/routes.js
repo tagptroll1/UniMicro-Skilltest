@@ -3,7 +3,8 @@ export default {
         signIn: "https://test-api.unieconomy.no/api/init/sign-in",
         companyKey: "https://test-api.unieconomy.no/api/init/companies",
         biz: {
-            contacts: "https://test-api.unieconomy.no/api/biz/contacts",
+            contacts: "https://test-api.unieconomy.no/api/biz/contacts?expand=Info",
+            contactId: (key) => `https://test-api.unieconomy.no/api/biz/contacts/${key}`,
             contact: (key, { invoiceAddress, defaultPhone, defaultEmail, defaultAddress }) => {
                 let url = `https://test-api.unieconomy.no/api/biz/contacts/${key}?expand=Info`;
 
@@ -17,9 +18,11 @@ export default {
         }
     },
     site: {
-        contacts: "/a/contacts",
-        contactId: (key) => `/a/contact?contactId=${key}`,
-        contactsCompanyKey: (key) => `/a/contacts/${key}`,
+        contacts: "auth/contacts",
+        contactId: (key) => `auth/contact/${key}`,
+        editContact: (key) => `auth/contact/${key}/edit`,
+        contactsCompanyKey: (companyKey) => `auth/contacts/${companyKey}`,
+        createContact: (companyKey) => `auth/contacts/${companyKey}/create`,
     },
     sapper: {
         contactId: (key) => `/api/contact/${key}`,

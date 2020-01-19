@@ -9,22 +9,22 @@ export async function post(req, res) {
         path: routes.test.signIn,
     });
 
-    const { access_token } = accessTokenResponse.message;
+    const { message } = accessTokenResponse;
 
-    if (!access_token) {
-        res.writeHead(400)
-        return res.end(accessTokenResponse)
+    res.setHeader("Content-Type", "application/json");
+
+    if (!message) {
+        res.writeHead(accessTokenResponse.status)
+        return res.end(JSON.stringify({ ok: false }));
     }
 
-    req.session.access_token = access_token;
+    req.session.access_token = message.access_token;
 
     const companiesResponse = await api.get({
         path: routes.test.companyKey,
-        token: access_token,
+        token: message.access_token,
     });
 
     req.session.companies = companiesResponse.message;
-
-    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(companiesResponse.message));
 }

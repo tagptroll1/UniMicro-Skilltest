@@ -41,16 +41,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 200px;
+    max-width: 180px;
   }
 
   label {
     width: 100%;
-    color: rgba(82, 82, 82, 0.8);
+    color: rgba(52, 52, 52, 0.8);
     margin-top: 15px;
   }
 
-  input:not([type="submit"]) {
+  input[type="text"],
+  input[type="password"] {
+    margin-bottom: 0;
+    border: thin solid black;
     box-sizing: border-box;
     width: 100%;
   }
@@ -71,10 +74,19 @@
     color: red;
     font-size: 0.8rem;
   }
+  .powered {
+    color: rgba(82, 82, 82, 0.7);
+  }
 
   img {
     width: 220px;
     margin-bottom: 40px;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: unset;
+    color: inherit;
   }
 </style>
 
@@ -93,4 +105,8 @@
   {:else if error}
     <p>Something went wrong</p>
   {/if}
+
+  <p class="powered">
+    <a href="https://www.friele.no/">Powered by Coffee</a>
+  </p>
 </form>

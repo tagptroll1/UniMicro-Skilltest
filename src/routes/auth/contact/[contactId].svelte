@@ -49,11 +49,11 @@
 
 <style>
   article {
-    margin: 20px 20px 0;
+    margin: 0 20px;
   }
 
   h1 {
-    width: max-content;
+    text-align: center;
   }
 
   h1 span {
@@ -62,33 +62,43 @@
     font-size: 1rem;
   }
 
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+
   ul {
-    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
     padding: 0;
   }
 
   li {
+    width: 40%;
+    font-size: 1.5rem;
     list-style: none;
     margin: 5px 0;
   }
 
   li span {
-    padding-left: 10px;
+    font-size: 1rem;
+    display: block;
   }
 
   a,
   button {
-    display: inline-block;
-    color: black;
     text-decoration: none;
     cursor: pointer;
     box-sizing: content-box;
     padding: 8px 10px;
-    margin: 0;
 
     background-color: unset;
-    border: 2px outset;
-    font-size: 0.8rem;
+    border: none;
+    font-size: 0.8em;
+    font-family: var(--font-family);
   }
 
   .address {
@@ -103,6 +113,21 @@
       <span>{Role}</span>
     {/if}
   </h1>
+
+  <div class="buttons">
+
+    <a href={routes.site.editContact(ID)}>
+      <EditIcon />
+      Edit
+    </a>
+
+    <button on:click={handleDelete}>
+      <DeleteContactIcon />
+      Delete
+    </button>
+
+  </div>
+
   <ul>
 
     {#if DefaultEmail}
@@ -147,13 +172,4 @@
     {/if}
   </ul>
 
-  <a href={routes.site.editContact(ID)}>
-    <EditIcon />
-    Edit
-  </a>
-
-  <button on:click={handleDelete}>
-    <DeleteContactIcon />
-    Delete
-  </button>
 </article>

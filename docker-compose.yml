@@ -10,15 +10,12 @@ services:
     container_name: nodejs
     environment:
       - NODE_ENV=production
-      - API_URL
     env_file:
       - ./.env
     command: node ./__sapper__/build
     restart: unless-stopped
     networks:
       - app-network
-    ports:
-      - 3000:3000
     volumes:
       - sessions:/data/sessions
 
@@ -29,36 +26,14 @@ services:
     ports:
       - "80:80"
     volumes:
-      - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
     depends_on:
       - nodejs
     networks:
       - app-network
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    depends_on:
-      - webserver
-    command: "certonly --webroot --webroot-path=/var/www/html --email thomas@petersson.priv.no --agree-tos --no-eff-email --staging -d petersson.coffee -d www.petersson.coffee"
-
 volumes:
   sessions:
-  certbot-etc:
-  certbot-var:
-  web-root:
-    driver: local
-    driver_opts:
-      type: none
-      device: /var/www/petersson.coffee/unimicro/
-      o: bind
 
 networks:
   app-network:
